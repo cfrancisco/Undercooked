@@ -1,0 +1,381 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a8cf891d561c43339c239c3aea2b157, type: 3}
+  m_Name: EmojiLibrary
+  m_EditorClassIdentifier: 
+  _emojis:
+  - emojiName: 0
+    emojiModel: {fileID: 919132149155446097, guid: 765c24bfb5497479e8cd2de86f5dd1f4,
+      type: 3}
+  - emojiName: 1
+    emojiModel: {fileID: 919132149155446097, guid: d49e5c8ee0514445498f44220acec632,
+      type: 3}
+  - emojiName: 2
+    emojiModel: {fileID: 919132149155446097, guid: 78a61cabff11945879bf0ec30b49c584,
+      type: 3}
+  - emojiName: 3
+    emojiModel: {fileID: 919132149155446097, guid: 16b7fbcb100544993a31ef79ee7a14ec,
+      type: 3}
+  - emojiName: 4
+    emojiModel: {fileID: 919132149155446097, guid: fff9043df9da54a3b8206eb7f97b8b8d,
+      type: 3}
+  - emojiName: 5
+    emojiModel: {fileID: 919132149155446097, guid: eb8b854ba315d47e1956d12198236735,
+      type: 3}
+  - emojiName: 6
+    emojiModel: {fileID: 919132149155446097, guid: adeea63c0d12346c29f810359b6ab45d,
+      type: 3}
+  - emojiName: 7
+    emojiModel: {fileID: 919132149155446097, guid: 08de5478af39044bf8681d7576d3a8b9,
+      type: 3}
+  - emojiName: 8
+    emojiModel: {fileID: 919132149155446097, guid: 792cf6ab7d0684a3184b0c25b9a8da2b,
+      type: 3}
+  - emojiName: 9
+    emojiModel: {fileID: 919132149155446097, guid: 809e0dd8d87c34624b924fec0092daa5,
+      type: 3}
+  - emojiName: 10
+    emojiModel: {fileID: 919132149155446097, guid: 031237d1fe98a485b92ed9088398099c,
+      type: 3}
+  - emojiName: 11
+    emojiModel: {fileID: 919132149155446097, guid: f465c18073a4944228e0fd50b554b57f,
+      type: 3}
+  - emojiName: 12
+    emojiModel: {fileID: 919132149155446097, guid: 37dba34b9d60e4ab9ab6fec8698e1071,
+      type: 3}
+  - emojiName: 13
+    emojiModel: {fileID: 919132149155446097, guid: d34fa229ddf6044f9ae0dadafbfa73c0,
+      type: 3}
+  - emojiName: 14
+    emojiModel: {fileID: 919132149155446097, guid: 02d4e5e4f533c4a308fc0a0f6b129288,
+      type: 3}
+  - emojiName: 15
+    emojiModel: {fileID: 919132149155446097, guid: d06a7dce3baa7414abec41a2b55f9128,
+      type: 3}
+  - emojiName: 16
+    emojiModel: {fileID: 919132149155446097, guid: d7beea71b798240ef83cca2a901bf6f9,
+      type: 3}
+  - emojiName: 17
+    emojiModel: {fileID: 919132149155446097, guid: c3c18e530c2194b5294c96f52103221a,
+      type: 3}
+  - emojiName: 18
+    emojiModel: {fileID: 919132149155446097, guid: 0667200328c3f452d98b51b12d4d72b2,
+      type: 3}
+  - emojiName: 19
+    emojiModel: {fileID: 919132149155446097, guid: 073220aea680a437591ebbdc4e0442c4,
+      type: 3}
+  - emojiName: 20
+    emojiModel: {fileID: 919132149155446097, guid: 2a3eb6f3600c141b88f52dc3e2192601,
+      type: 3}
+  - emojiName: 21
+    emojiModel: {fileID: 919132149155446097, guid: 5def4696dc8fb4e828009132b0a29ba9,
+      type: 3}
+  - emojiName: 22
+    emojiModel: {fileID: 919132149155446097, guid: 5576e0f6d1a2c4901aa035574c2e7947,
+      type: 3}
+  - emojiName: 23
+    emojiModel: {fileID: 919132149155446097, guid: 94972267469944cd29c7c3f0fc92f8f0,
+      type: 3}
+  - emojiName: 24
+    emojiModel: {fileID: 919132149155446097, guid: d1d75b519a66048ba83202d188389441,
+      type: 3}
+  - emojiName: 25
+    emojiModel: {fileID: 919132149155446097, guid: bcddf7423b03240f98e9ab4d1613b508,
+      type: 3}
+  - emojiName: 26
+    emojiModel: {fileID: 919132149155446097, guid: 0807474e3c79e4450a55f54f072ffead,
+      type: 3}
+  - emojiName: 27
+    emojiModel: {fileID: 919132149155446097, guid: 3d395f2e3954e4af9afa96a0fa9ee4d5,
+      type: 3}
+  - emojiName: 28
+    emojiModel: {fileID: 919132149155446097, guid: 838372952802b49119102ac538d1415e,
+      type: 3}
+  - emojiName: 29
+    emojiModel: {fileID: 919132149155446097, guid: 93f5bd57a0c1f4886a08e1c36a81c237,
+      type: 3}
+  - emojiName: 30
+    emojiModel: {fileID: 919132149155446097, guid: 7fec1ecec2ee640e7a6143af82de41bc,
+      type: 3}
+  - emojiName: 31
+    emojiModel: {fileID: 919132149155446097, guid: e2228a4020f2c456fbfaa15cffe2b445,
+      type: 3}
+  - emojiName: 32
+    emojiModel: {fileID: 919132149155446097, guid: 0cdefc57359944dd28b29a61402ff18f,
+      type: 3}
+  - emojiName: 33
+    emojiModel: {fileID: 919132149155446097, guid: 69e501483b1f54a249be931c52d05e5b,
+      type: 3}
+  - emojiName: 34
+    emojiModel: {fileID: 919132149155446097, guid: 602f12ab7841341a9ad75d3c31b47869,
+      type: 3}
+  - emojiName: 35
+    emojiModel: {fileID: 919132149155446097, guid: c581f3aac8d0540b1b2de34c59c5a5fb,
+      type: 3}
+  - emojiName: 36
+    emojiModel: {fileID: 919132149155446097, guid: f6094fd6366324be996dcf3a1083e200,
+      type: 3}
+  - emojiName: 37
+    emojiModel: {fileID: 919132149155446097, guid: 409d4e3cfcd014662a01a795f00a5220,
+      type: 3}
+  - emojiName: 38
+    emojiModel: {fileID: 919132149155446097, guid: 4c9fe284422214bf2b5f79b45ee4b2c3,
+      type: 3}
+  - emojiName: 39
+    emojiModel: {fileID: 919132149155446097, guid: fb70c49185e0642f08245c08eb3c620a,
+      type: 3}
+  - emojiName: 40
+    emojiModel: {fileID: 919132149155446097, guid: a605046da136d4faf8257461051feafb,
+      type: 3}
+  - emojiName: 41
+    emojiModel: {fileID: 919132149155446097, guid: 0e6bde8613c55401f84bf657e6d25fe8,
+      type: 3}
+  - emojiName: 42
+    emojiModel: {fileID: 919132149155446097, guid: da70a9ae0bb404517b21aaa9e476e368,
+      type: 3}
+  - emojiName: 43
+    emojiModel: {fileID: 919132149155446097, guid: b1f432a4db37840f1b3eafe05aef93b3,
+      type: 3}
+  - emojiName: 44
+    emojiModel: {fileID: 919132149155446097, guid: b1681f10fbe4641ada0f437cfe4ab6ed,
+      type: 3}
+  - emojiName: 45
+    emojiModel: {fileID: 919132149155446097, guid: 08af5cc4bf5ef436f803e44746acab2d,
+      type: 3}
+  - emojiName: 46
+    emojiModel: {fileID: 919132149155446097, guid: 19d7441ac0a454112a464486d6975fea,
+      type: 3}
+  - emojiName: 47
+    emojiModel: {fileID: 919132149155446097, guid: a4b8e1dac2b1842cfbde9ccaad98538c,
+      type: 3}
+  - emojiName: 48
+    emojiModel: {fileID: 919132149155446097, guid: 08f4cac5c0ceb471493c19e70fc1163e,
+      type: 3}
+  - emojiName: 49
+    emojiModel: {fileID: 919132149155446097, guid: e34c3a48ff1494d1290d386f182e9a3b,
+      type: 3}
+  - emojiName: 50
+    emojiModel: {fileID: 919132149155446097, guid: 186d10ca8a76f4cf1ae08b667156df1f,
+      type: 3}
+  - emojiName: 51
+    emojiModel: {fileID: 919132149155446097, guid: 153003f950fc54944a92f163cc37b6ed,
+      type: 3}
+  - emojiName: 52
+    emojiModel: {fileID: 919132149155446097, guid: 513f0a4ce54d34a9fabc4d87020c1e80,
+      type: 3}
+  - emojiName: 53
+    emojiModel: {fileID: 919132149155446097, guid: 6fbf7123e6c6c4ee990e0b5c1984957a,
+      type: 3}
+  - emojiName: 54
+    emojiModel: {fileID: 919132149155446097, guid: d1028c93f02df4ea3b4de596adf229e9,
+      type: 3}
+  - emojiName: 55
+    emojiModel: {fileID: 919132149155446097, guid: bdb09b8b24e7b489693ebf7674f85eb5,
+      type: 3}
+  - emojiName: 56
+    emojiModel: {fileID: 919132149155446097, guid: 52823d169da8244bb99ab21fd41cdb90,
+      type: 3}
+  - emojiName: 57
+    emojiModel: {fileID: 919132149155446097, guid: 6d6e740b726f34ccbaac26f27a03d164,
+      type: 3}
+  - emojiName: 58
+    emojiModel: {fileID: 919132149155446097, guid: 6063b45c401e949ba9dca1d42f516eb0,
+      type: 3}
+  - emojiName: 59
+    emojiModel: {fileID: 919132149155446097, guid: c5ad067696a3c4394b49d77eb9690c13,
+      type: 3}
+  - emojiName: 60
+    emojiModel: {fileID: 919132149155446097, guid: 1b0d4221d1e4d4c1091fc438cef2c73f,
+      type: 3}
+  - emojiName: 61
+    emojiModel: {fileID: 919132149155446097, guid: c4c870ae922bc4cb2a765bebe5d21155,
+      type: 3}
+  - emojiName: 62
+    emojiModel: {fileID: 919132149155446097, guid: 41d5896e399af49c89b3c6e3557ea4ca,
+      type: 3}
+  - emojiName: 63
+    emojiModel: {fileID: 919132149155446097, guid: 08ed8e4513a5149429ff5bb03e804efc,
+      type: 3}
+  - emojiName: 64
+    emojiModel: {fileID: 919132149155446097, guid: ccdb446d7e18a48cea03e99699205ab5,
+      type: 3}
+  - emojiName: 65
+    emojiModel: {fileID: 919132149155446097, guid: 75cc26dc5d70642db95cfd1ecaf63c6d,
+      type: 3}
+  - emojiName: 66
+    emojiModel: {fileID: 919132149155446097, guid: 17004b0ee8ccb41a7be482eb2de20708,
+      type: 3}
+  - emojiName: 67
+    emojiModel: {fileID: 919132149155446097, guid: 6bd04140cfa52479a92e3382eef65df8,
+      type: 3}
+  - emojiName: 68
+    emojiModel: {fileID: 919132149155446097, guid: db57525463edb4f089ba6fa38f1256b1,
+      type: 3}
+  - emojiName: 69
+    emojiModel: {fileID: 919132149155446097, guid: 75f8fe742c95640f7b0e3a3e88b65119,
+      type: 3}
+  - emojiName: 70
+    emojiModel: {fileID: 919132149155446097, guid: 0da43abcb24f9464ca1988795ac85a33,
+      type: 3}
+  - emojiName: 71
+    emojiModel: {fileID: 919132149155446097, guid: df6e634489e6841e1bf1ba80f1d3f199,
+      type: 3}
+  - emojiName: 72
+    emojiModel: {fileID: 919132149155446097, guid: a168f0babc15a4a07a0a17a10c38ac62,
+      type: 3}
+  - emojiName: 73
+    emojiModel: {fileID: 919132149155446097, guid: 06c01906c4bd9423a9eb2f8cdc0e9734,
+      type: 3}
+  - emojiName: 74
+    emojiModel: {fileID: 919132149155446097, guid: e4a35a6700d154972a517c82ffd9bf28,
+      type: 3}
+  - emojiName: 75
+    emojiModel: {fileID: 919132149155446097, guid: 376c0dcecdd7b43c689ea12513b9a3a3,
+      type: 3}
+  - emojiName: 76
+    emojiModel: {fileID: 919132149155446097, guid: 63f5aa88fdfbb41059bd93756d5bc8ae,
+      type: 3}
+  - emojiName: 77
+    emojiModel: {fileID: 919132149155446097, guid: 00d391d92a1634a6f8ad01711766aced,
+      type: 3}
+  - emojiName: 78
+    emojiModel: {fileID: 919132149155446097, guid: af9783b10256242f3b253a64179b0062,
+      type: 3}
+  - emojiName: 79
+    emojiModel: {fileID: 919132149155446097, guid: 27d90e4c5be614c258e80f2f4f42375a,
+      type: 3}
+  - emojiName: 80
+    emojiModel: {fileID: 919132149155446097, guid: 08ad7bd445bcf418fb08edd1121ed738,
+      type: 3}
+  - emojiName: 81
+    emojiModel: {fileID: 919132149155446097, guid: fcc1d1f83018a46f7b2a50a0a9372d9e,
+      type: 3}
+  - emojiName: 82
+    emojiModel: {fileID: 919132149155446097, guid: 559a952404bf54cceafcba8523ccaa0f,
+      type: 3}
+  - emojiName: 83
+    emojiModel: {fileID: 919132149155446097, guid: 209f50856cf2a46309dd48b1dd02bede,
+      type: 3}
+  - emojiName: 84
+    emojiModel: {fileID: 919132149155446097, guid: c3174cc6c22f54aa29527d574c146bc9,
+      type: 3}
+  - emojiName: 85
+    emojiModel: {fileID: 919132149155446097, guid: 8f576eb5a84a94c6989d587accb3ec71,
+      type: 3}
+  - emojiName: 86
+    emojiModel: {fileID: 919132149155446097, guid: e2ebeeb60dd384d9c81f51b129172643,
+      type: 3}
+  - emojiName: 87
+    emojiModel: {fileID: 919132149155446097, guid: 5c7a98c90cedb4881892e38f4bb2dbae,
+      type: 3}
+  - emojiName: 88
+    emojiModel: {fileID: 919132149155446097, guid: 10f0476d2cb2f4741b3deab545be1499,
+      type: 3}
+  - emojiName: 89
+    emojiModel: {fileID: 919132149155446097, guid: 3e79c3e20adc04fd88f8f4330833448a,
+      type: 3}
+  - emojiName: 90
+    emojiModel: {fileID: 919132149155446097, guid: ab6c747b0778c4a219e8e5a53f851734,
+      type: 3}
+  - emojiName: 91
+    emojiModel: {fileID: 919132149155446097, guid: 535de3a3722334ddd9f9ec1dcf30158b,
+      type: 3}
+  - emojiName: 92
+    emojiModel: {fileID: 919132149155446097, guid: c8b052dfa0f604f05aa7578404426428,
+      type: 3}
+  - emojiName: 93
+    emojiModel: {fileID: 919132149155446097, guid: d221ca0ea08284a1f8c1ac3f398e5c36,
+      type: 3}
+  - emojiName: 94
+    emojiModel: {fileID: 919132149155446097, guid: 9e8540025994042989b08632f12af1ee,
+      type: 3}
+  - emojiName: 95
+    emojiModel: {fileID: 919132149155446097, guid: f5a9f3ac5ce284e899cf5356281f9a82,
+      type: 3}
+  - emojiName: 96
+    emojiModel: {fileID: 919132149155446097, guid: 9c31d6dc93db24a15843a35e8df1530f,
+      type: 3}
+  - emojiName: 97
+    emojiModel: {fileID: 919132149155446097, guid: db56fcba76eb14aba8369fe5f67a975a,
+      type: 3}
+  - emojiName: 98
+    emojiModel: {fileID: 919132149155446097, guid: f3493117dead141c089ba604a3570450,
+      type: 3}
+  - emojiName: 99
+    emojiModel: {fileID: 919132149155446097, guid: 4f26d6f69130c48e990fa416450f83a1,
+      type: 3}
+  - emojiName: 100
+    emojiModel: {fileID: 919132149155446097, guid: ea3127de55a1b48b89f4157a2039aa62,
+      type: 3}
+  - emojiName: 101
+    emojiModel: {fileID: 919132149155446097, guid: 6c799127d96094b17b70726385444586,
+      type: 3}
+  - emojiName: 102
+    emojiModel: {fileID: 919132149155446097, guid: af8010a6a5f134874a171583fb23207e,
+      type: 3}
+  - emojiName: 103
+    emojiModel: {fileID: 919132149155446097, guid: 52baf2c0bd217496dbdbaf3a567df4a5,
+      type: 3}
+  - emojiName: 104
+    emojiModel: {fileID: 919132149155446097, guid: cb5a52e6bc9a14e21a619ac77c3c62a1,
+      type: 3}
+  - emojiName: 105
+    emojiModel: {fileID: 919132149155446097, guid: f380da5efa3e64d8eaac65b58a8b2a7e,
+      type: 3}
+  - emojiName: 106
+    emojiModel: {fileID: 919132149155446097, guid: 154dd6b77cd1a4e9898c420f949769c1,
+      type: 3}
+  - emojiName: 107
+    emojiModel: {fileID: 919132149155446097, guid: 82f19769fa1c14970a0a8e290746cc45,
+      type: 3}
+  - emojiName: 108
+    emojiModel: {fileID: 919132149155446097, guid: e9f2af041b8b94cfeafb6a557648d14c,
+      type: 3}
+  - emojiName: 109
+    emojiModel: {fileID: 919132149155446097, guid: a1888b668daa94b03a1646d263bf6840,
+      type: 3}
+  - emojiName: 110
+    emojiModel: {fileID: 919132149155446097, guid: 9c7d3c39b37094ce5b2782f54e7069a8,
+      type: 3}
+  - emojiName: 111
+    emojiModel: {fileID: 919132149155446097, guid: d3a405c2ea7d542249a3d190bec7bdee,
+      type: 3}
+  - emojiName: 112
+    emojiModel: {fileID: 919132149155446097, guid: 2dca4c0dbd03f40dd9cc0632bb8c98d1,
+      type: 3}
+  - emojiName: 113
+    emojiModel: {fileID: 919132149155446097, guid: 483f47caf6fc444a9ad2f6e2f08258db,
+      type: 3}
+  - emojiName: 114
+    emojiModel: {fileID: 919132149155446097, guid: 0d5f38339eb3343f895bc316b731605c,
+      type: 3}
+  - emojiName: 115
+    emojiModel: {fileID: 919132149155446097, guid: a055b942f9212409f9fd0a7dfbde191e,
+      type: 3}
+  - emojiName: 116
+    emojiModel: {fileID: 919132149155446097, guid: 06d742dbd2c0e40cb88aa94d655cf2c3,
+      type: 3}
+  - emojiName: 117
+    emojiModel: {fileID: 919132149155446097, guid: fd4b7901889a04bc399e86b3b9568c28,
+      type: 3}
+  - emojiName: 118
+    emojiModel: {fileID: 919132149155446097, guid: 7c1f8dcb0e331471891c460a5ff219f5,
+      type: 3}
+  - emojiName: 119
+    emojiModel: {fileID: 919132149155446097, guid: 76cc17d8547bb43f8a0d7dbae86e5aaa,
+      type: 3}
+  - emojiName: 120
+    emojiModel: {fileID: 919132149155446097, guid: 6dfb3b89ddaf24005a15db114007d780,
+      type: 3}
+  - emojiName: 121
+    emojiModel: {fileID: 919132149155446097, guid: 8fce78e642ac6479f92231d18dc17b10,
+      type: 3}

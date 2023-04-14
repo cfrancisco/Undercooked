@@ -31,6 +31,14 @@ namespace Undercooked.Player
         private InputAction _pickUpAction;
         private InputAction _interactAction;
         private InputAction _startAtPlayerAction;
+        private InputAction _dialogForChoppingAction;
+
+
+        [Header("Dialogs")]
+        [SerializeField] private GameObject dialogChopping;
+        [SerializeField] private AudioClip dialogAudio;
+        [SerializeField] private Camera cam;
+         [SerializeField] private Transform playerTransform;
 
         // Dashing
         [SerializeField] private float dashForce = 900f;
@@ -52,6 +60,8 @@ namespace Undercooked.Player
         [SerializeField] private ParticleSystem dashParticle;
         [SerializeField] private Transform knife;
 
+        private DialogueSystem dialogueSystem;
+
         [Header("Audio")]
         [SerializeField] private AudioClip dashAudio;
         [SerializeField] private AudioClip pickupAudio;
@@ -59,8 +69,11 @@ namespace Undercooked.Player
 
         private void Awake()
         {
+            dialogueSystem = FindObjectOfType<DialogueSystem>();
+    
             _moveAction = playerInput.currentActionMap["Move"];
             _dashAction = playerInput.currentActionMap["Dash"];
+              _dialogForChoppingAction = playerInput.currentActionMap["Dialog"];
             _pickUpAction = playerInput.currentActionMap["PickUp"];
             _interactAction = playerInput.currentActionMap["Interact"];
             _startAtPlayerAction = playerInput.currentActionMap["Start@Player"];
@@ -108,6 +121,7 @@ namespace Undercooked.Player
             _hasSubscribedControllerEvents = true;
             _moveAction.performed += HandleMove;
             _dashAction.performed += HandleDash;
+            _dialogForChoppingAction.performed += HandleDialog;
             _pickUpAction.performed += HandlePickUp;
             _interactAction.performed += HandleInteract;
         }
@@ -119,6 +133,7 @@ namespace Undercooked.Player
             _hasSubscribedControllerEvents = false;
             _moveAction.performed -= HandleMove;
             _dashAction.performed -= HandleDash;
+            _dialogForChoppingAction.performed -= HandleDialog;
             _pickUpAction.performed -= HandlePickUp;
             _interactAction.performed -= HandleInteract;
         }
@@ -174,6 +189,48 @@ namespace Undercooked.Player
             if (!_isDashingPossible) return;
             StartCoroutine(Dash());
         }
+
+
+
+
+        private void HandleDialog(InputAction.CallbackContext context)
+        {
+            Debug.Log($"[PlayerController] {transform.position}");
+            StopAllCoroutines();
+
+            //dialogChopping.SetActive(true);
+            string[] dialogues = new string[] { "Por favor, você pode \n cortar tomates?"};
+            dialogueSystem.dialogueLines = dialogues;
+            FindObjectOfType<DialogueSystem>().StartTalking();
+
+            this.PlaySoundTransition(dialogAudio);
+            StartCoroutine(DisableDialog());
+        }
+
+
+
+        private IEnumerator DisableDialog()
+        {
+            //wait 3 seconds
+            yield return new WaitForSeconds(7);
+            //dialogChopping.SetActive(false);
+            FindObjectOfType<DialogueSystem>().OutOfRange();
+        }
+        
+        /*
+     public void OnTriggerStay(Collider other)
+        {
+            this.gameObject.GetComponent<NPC>().enabled = true;
+            FindObjectOfType<DialogueSystem>().EnterRangeOfNPC();
+            if ((other.gameObject.tag == "Player") && Input.GetKeyDown(KeyCode.F))
+            {
+                this.gameObject.GetComponent<NPC>().enabled = true;
+                dialogueSystem.Names = Name;
+                dialogueSystem.dialogueLines = sentences;
+                FindObjectOfType<DialogueSystem>().NPCName();
+            }
+        }*/
+ 
 
         private IEnumerator Dash()
         {
@@ -253,6 +310,7 @@ namespace Undercooked.Player
 
         private void HandleMove(InputAction.CallbackContext context)
         {
+           //  dialogChopping.SetActive(false);
             // TODO: Processors on input binding not working for analogical stick. Investigate it.
             Vector2 inputMovement = context.ReadValue<Vector2>();
             if (inputMovement.x > 0.3f)
@@ -297,6 +355,14 @@ namespace Undercooked.Player
         private void Update()
         {
             if (!_isActive) return;
+
+            // Dialogue box update
+            Vector3 Pos = Camera.main.WorldToScreenPoint(transform.position);
+            Pos.y += 175;
+            dialogChopping.transform.position= Pos;
+         
+
+
             CalculateInputDirection();
         }
 

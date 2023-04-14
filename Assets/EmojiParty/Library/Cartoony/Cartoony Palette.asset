@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd349d2cc7414752bfeb6cfbdb3dd5a, type: 3}
+  m_Name: Cartoony Palette
+  m_EditorClassIdentifier: 
+  materials:
+  - name: 10
+    material: {fileID: 2100000, guid: f56233087bb27402bbe414041e039f7c, type: 2}
+  - name: 20
+    material: {fileID: 2100000, guid: 41c838fd2b17d47678dbbe89db5fcdd2, type: 2}
+  - name: 21
+    material: {fileID: 2100000, guid: 51c0e9841ce4a4a69835f55016c0fe75, type: 2}
+  - name: 22
+    material: {fileID: 2100000, guid: 3bbedc763255e4cae8498af53c6d21c1, type: 2}
+  - name: 30
+    material: {fileID: 2100000, guid: 4cb83d8de777b43a79ff291bed8d61f4, type: 2}
+  - name: 40
+    material: {fileID: 2100000, guid: bb859de9aaae444fabb78422bfd44c28, type: 2}
+  - name: 50
+    material: {fileID: 2100000, guid: ae0cf905eaf6b40cb845e85b8c64904c, type: 2}
+  - name: 60
+    material: {fileID: 2100000, guid: dd6dd8e92cdf84d2bb203c5c8c143a20, type: 2}
+  - name: 70
+    material: {fileID: 2100000, guid: 91f480f1ba6424c8baa54a2ecd7b08e0, type: 2}
+  - name: 80
+    material: {fileID: 2100000, guid: a0bcb5c1aa5a04b189b40cc04484496f, type: 2}
+  - name: 90
+    material: {fileID: 2100000, guid: 6287c1295f5f5454ab66b0438f6d397c, type: 2}
+  - name: 100
+    material: {fileID: 2100000, guid: 1ceae246efd2f4787b5fa2459c5d55da, type: 2}
+  - name: 110
+    material: {fileID: 2100000, guid: e2d28c442dd90484a99e721e7f6f4e19, type: 2}
+  - name: 120
+    material: {fileID: 2100000, guid: aac957896ec0640dcb428bd45685b06c, type: 2}
+  - name: 130
+    material: {fileID: 2100000, guid: 571fb61780fac481684e12d9e8618441, type: 2}
+  - name: 131
+    material: {fileID: 2100000, guid: d697908b315a34c4b95c41958414a75b, type: 2}
+  - name: 141
+    material: {fileID: 2100000, guid: d401aa006a019414986adfe9e4abad79, type: 2}
+  - name: 142
+    material: {fileID: 2100000, guid: 4daa446895c884d97ab94ce5d1f40a1d, type: 2}
+  - name: 143
+    material: {fileID: 2100000, guid: 80381c684e4ea4e98a443d9e4a1915f9, type: 2}
+  - name: 150
+    material: {fileID: 2100000, guid: e86c3f054b6454e3f938249ddbe49f4d, type: 2}
+  - name: 151
+    material: {fileID: 2100000, guid: 65c0b95e86ca949ccb09181888542d89, type: 2}
+  - name: 152
+    material: {fileID: 2100000, guid: a584d5f72a39d43e6b8b52da5eafb76c, type: 2}
+  - name: 160
+    material: {fileID: 2100000, guid: d737e370c48ac4641a296ad0e5b4fbe5, type: 2}
+  - name: 161
+    material: {fileID: 2100000, guid: 0a48ee14df09045ac9ecbc38a2d861bc, type: 2}
+  - name: 170
+    material: {fileID: 2100000, guid: 70d3250eb814b48e8b3884dc8aa8c881, type: 2}
+  - name: 181
+    material: {fileID: 2100000, guid: 59e4dddbf07264dabb191da20d007244, type: 2}
+  - name: 182
+    material: {fileID: 2100000, guid: 715eb241c551f4e3e8bcdb25155a1327, type: 2}
+  - name: 183
+    material: {fileID: 2100000, guid: 80cbda3c6647e4a3b8a9b79de2d484fe, type: 2}
+  - name: 200
+    material: {fileID: 2100000, guid: c90c10a9a6e404433a81f3f96928e229, type: 2}
+  - name: 210
+    material: {fileID: 2100000, guid: 12f460bde36494bdbad6baa790e8b73b, type: 2}
