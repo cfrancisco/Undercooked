@@ -16,10 +16,6 @@ public class DialogueSystem: MonoBehaviour {
     public float letterDelay = 0.1f;
     public float letterMultiplier = 0.5f;
 
-    public KeyCode DialogueInput = KeyCode.F;
-
-    public string Names;
-
     public string[] dialogueLines;
 
     public bool letterIsMultiplied = false;
@@ -54,7 +50,6 @@ public class DialogueSystem: MonoBehaviour {
     public void StartTalking()
     {
         outOfRange = false;
-        Debug.Log("StartTalking");
         dialogueBoxGUI.gameObject.SetActive(true);
         if (!dialogueActive)
         {
@@ -103,7 +98,6 @@ public class DialogueSystem: MonoBehaviour {
 
     private IEnumerator DisplayString(string stringToDisplay)
     {
-        Debug.Log("stringToDisplay"+stringToDisplay);
         if (outOfRange == false)
         {
             int stringLength = stringToDisplay.Length;
@@ -151,8 +145,7 @@ public class DialogueSystem: MonoBehaviour {
 
     public void OutOfRange()
     {
-        Debug.Log("OutOfRange");
-      
+     
         outOfRange = true;
         if (outOfRange == true)
         {

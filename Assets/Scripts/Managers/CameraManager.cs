@@ -24,18 +24,15 @@ namespace Undercooked.Managers
         private void Awake()
         {
             #if UNITY_EDITOR
-                Assert.IsNotNull(virtualCamera1);
-                Assert.IsNotNull(virtualCamera2);
-                Assert.IsNotNull(dollyCamera);
                 Assert.IsNotNull(starGlowParticleSystem);
-                Assert.IsNotNull(dollyCameraTarget);
             #endif
             
             starGlowParticleSystem.Play();
             _particleSystemTransform = starGlowParticleSystem.transform;
-            _avatar1 = virtualCamera1.Follow;
-            _avatar2 = virtualCamera2.Follow;
-            _particleSystemTransform.position = _avatar1.position;
+            _avatar1 = virtualCamera1?.Follow;
+            _avatar2 = virtualCamera2?.Follow;
+            if (_avatar1)
+                _particleSystemTransform.position = _avatar1.position;
         }
 
         public void FocusFirstPlayer()
@@ -43,44 +40,30 @@ namespace Undercooked.Managers
             SwitchFocus(InputController.PlayerControllerIndex.First);
         }
 
-        private void OnEnable()
-        {
-            InputController.OnSwitchPlayerController += HandleSwitchPlayerController;
-        }
-
-        private void OnDisable()
-        {
-            InputController.OnSwitchPlayerController -= HandleSwitchPlayerController;
-        }
-
-        private void HandleSwitchPlayerController(InputController.PlayerControllerIndex playerControllerIndex)
-        {
-            SwitchFocus(playerControllerIndex);
-        }
-
         private void SwitchFocus(InputController.PlayerControllerIndex playerControllerIndex)
         {
             dollyCamera.gameObject.SetActive(false);
             dollyCameraTarget.gameObject.SetActive(false);
-            
+          //  Debug.Log("[CameraManager] SwitchFocus: "+playerControllerIndex);
+        
             switch (playerControllerIndex)
             {
                 case InputController.PlayerControllerIndex.First:
-                    if (_lastActivatedPlayerController != InputController.PlayerControllerIndex.None)
-                    {
-                        MoveStarParticle(_avatar2, _avatar1, TransitionDelayInSeconds);
-                    }
+                   // if (_lastActivatedPlayerController != InputController.PlayerControllerIndex.None)
+                  //  {
+                    MoveStarParticle(_avatar2, _avatar1, TransitionDelayInSeconds);
+                   // }
                     virtualCamera1.gameObject.SetActive(true);
                     virtualCamera2.gameObject.SetActive(false);
                     break;
-                case InputController.PlayerControllerIndex.Second:
+               /* case InputController.PlayerControllerIndex.Second:
                     if (_lastActivatedPlayerController != InputController.PlayerControllerIndex.None)
                     {
                         MoveStarParticle(_avatar1, _avatar2, TransitionDelayInSeconds);
                     }
                     virtualCamera1.gameObject.SetActive(false);
                     virtualCamera2.gameObject.SetActive(true);
-                    break;
+                    break;*/
                 default:
                     Debug.LogWarning("[CameraManager] Unexpected player controller index", this);
                     break;

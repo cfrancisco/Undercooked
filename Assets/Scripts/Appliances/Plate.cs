@@ -17,12 +17,12 @@ namespace Undercooked.Appliances
         [SerializeField] private MeshRenderer meshRenderer;
         [SerializeField] private Transform soup;
         
-        private const int MaxNumberIngredients = 4;
+        private const int MaxNumberIngredients = 3;
         
         private Material _soupMaterial;
         private Rigidbody _rigidbody;
         private Collider _collider;
-        private readonly List<Ingredient> _ingredients = new List<Ingredient>(MaxNumberIngredients);
+        [SerializeField]  private List<Ingredient> _ingredients = new List<Ingredient>(MaxNumberIngredients);
 
         public bool IsClean { get; private set; } = true;
         public List<Ingredient> Ingredients => _ingredients;
@@ -41,7 +41,7 @@ namespace Undercooked.Appliances
                 Assert.IsNotNull(cleanMaterial);
                 Assert.IsNotNull(dirtyMaterial);
                 Assert.IsNotNull(meshRenderer);
-                Assert.IsTrue(ingredientUISlots.Count == MaxNumberIngredients);
+             //   Assert.IsTrue(ingredientUISlots.Count == MaxNumberIngredients);
             #endif
             
             Setup();
@@ -118,7 +118,7 @@ namespace Undercooked.Appliances
         /// </summary>
         public static bool CheckSoupIngredients(IReadOnlyList<Ingredient> ingredients)
         {
-            if (ingredients == null || ingredients.Count != 3)
+            if (ingredients == null || ingredients.Count != 2)
             {
                 return false;
             }
@@ -131,9 +131,11 @@ namespace Undercooked.Appliances
                 return false;
             }
             
-            if (ingredients[0].Type != ingredients[1].Type ||
+            /* ||
                 ingredients[1].Type != ingredients[2].Type ||
-                ingredients[0].Type != ingredients[2].Type)
+                ingredients[0].Type != ingredients[2].Type*/
+
+            if (ingredients[0].Type != ingredients[1].Type)
             {
                 Debug.Log("[Plate] Soup with mixed ingredients! You must thrash it away! What a waste!");
                 return false;

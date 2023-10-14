@@ -51,6 +51,7 @@ namespace Undercooked.Appliances
         
         private void PlayPositiveFeedback()
         {
+            TutorialManager.wasDeliver = true;
             starParticle.Play();
             starParticle.PlaySoundTransition(positiveFeedbackAudio);
         }

@@ -100,6 +100,15 @@ namespace Undercooked.Managers
             }
         }
 
+        public void TrySpawnFirstOrder()
+        {
+            var order = Instantiate(orderPrefab, transform);
+            order.Setup(GetFirstOrderData(), _orders.Count * extraTimePerOrder);
+            _orders.Add(order);
+            SubscribeEvents(order);
+            OnOrderSpawned?.Invoke(order);
+        }
+
         private static void SubscribeEvents(Order order)
         {
             order.OnDelivered += HandleOrderDelivered;
@@ -136,6 +145,12 @@ namespace Undercooked.Managers
             var randomIndex = Random.Range(0, currentLevel.orders.Count);
             return Instantiate(currentLevel.orders[randomIndex]);
         }
+
+        private OrderData GetFirstOrderData()
+        {
+            return Instantiate(currentLevel.orders[0]);
+        }
+
         
         public void CheckIngredientsMatchOrder(List<Ingredient> ingredients)
         {
@@ -154,7 +169,7 @@ namespace Undercooked.Managers
                 List<IngredientType> orderIngredients = order.Ingredients.Select(x => x.type).ToList();
 
                 if (plateIngredients.Count != orderIngredients.Count) continue;
-                
+        
                 var intersection = plateIngredients.Except(orderIngredients).ToList();
                 
                 if (intersection.Count != 0) continue; // doesn't match any plate

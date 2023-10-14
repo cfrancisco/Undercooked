@@ -2,6 +2,8 @@ using System.Collections;
 using Lean.Transition;
 using Undercooked.Appliances;
 using Undercooked.Model;
+using Undercooked.Requests;
+using Undercooked.Data;
 using Undercooked.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,11 +12,10 @@ namespace Undercooked.Player
 {
     public class PlayerController : MonoBehaviour
     {
+        [Header("Physics")]
         [SerializeField] private Color playerColor;
         [SerializeField] private Transform selector;
         [SerializeField] private Material playerUniqueColorMaterial;
-
-        [Header("Physics")]
         [SerializeField] private Rigidbody playerRigidbody;
 
         [Header("Animation")]
@@ -27,18 +28,21 @@ namespace Undercooked.Player
         [Header("Input")]
         [SerializeField] private PlayerInput playerInput;
         private InputAction _moveAction;
-        private InputAction _dashAction;
+    //    private InputAction _dashAction;
         private InputAction _pickUpAction;
         private InputAction _interactAction;
         private InputAction _startAtPlayerAction;
         private InputAction _dialogForChoppingAction;
-
+        private InputAction _pauseAction;
 
         [Header("Dialogs")]
         [SerializeField] private GameObject dialogChopping;
         [SerializeField] private AudioClip dialogAudio;
-        [SerializeField] private Camera cam;
-         [SerializeField] private Transform playerTransform;
+       // [SerializeField] private Camera cam;
+       //  [SerializeField] private Transform playerTransform;
+        
+        public RequestController _requestController;
+        
 
         // Dashing
         [SerializeField] private float dashForce = 900f;
@@ -67,21 +71,27 @@ namespace Undercooked.Player
         [SerializeField] private AudioClip pickupAudio;
         [SerializeField] private AudioClip dropAudio;
 
+
+        
         private void Awake()
         {
             dialogueSystem = FindObjectOfType<DialogueSystem>();
     
             _moveAction = playerInput.currentActionMap["Move"];
-            _dashAction = playerInput.currentActionMap["Dash"];
-              _dialogForChoppingAction = playerInput.currentActionMap["Dialog"];
+            _dialogForChoppingAction = playerInput.currentActionMap["Dialog"];
             _pickUpAction = playerInput.currentActionMap["PickUp"];
             _interactAction = playerInput.currentActionMap["Interact"];
             _startAtPlayerAction = playerInput.currentActionMap["Start@Player"];
-
+            _pauseAction = playerInput.currentActionMap["PauseGame"];
+           
             _interactableController = GetComponentInChildren<InteractableController>();
             knife.gameObject.SetActive(false);
 
             SetPlayerUniqueColor(playerColor);
+        }
+
+        private void Start() {
+            this.ActivatePlayer();
         }
 
         private void SetPlayerUniqueColor(Color color)
@@ -96,6 +106,13 @@ namespace Undercooked.Player
             SubscribeControllerEvents();
             selector.gameObject.SetActive(true);
         }
+
+        // generate a message when the game shuts down or switches to another Scene
+        void OnDestroy()
+        {
+            DeactivatePlayer();
+        }
+
 
         public void DeactivatePlayer()
         {
@@ -120,10 +137,12 @@ namespace Undercooked.Player
             if (_hasSubscribedControllerEvents) return;
             _hasSubscribedControllerEvents = true;
             _moveAction.performed += HandleMove;
-            _dashAction.performed += HandleDash;
-            _dialogForChoppingAction.performed += HandleDialog;
-            _pickUpAction.performed += HandlePickUp;
+           // _dashAction.performed += HandleDash;
+           // _dialogForChoppingAction.performed += HandleCountertop;
+           // _pickUpAction.performed += HandlePickUp;
+            _pickUpAction.performed += HandleChoices;
             _interactAction.performed += HandleInteract;
+            _pauseAction.performed += HandlePause;
         }
 
         private void UnsubscribeControllerEvents()
@@ -132,10 +151,12 @@ namespace Undercooked.Player
 
             _hasSubscribedControllerEvents = false;
             _moveAction.performed -= HandleMove;
-            _dashAction.performed -= HandleDash;
-            _dialogForChoppingAction.performed -= HandleDialog;
-            _pickUpAction.performed -= HandlePickUp;
+          //  _dashAction.performed -= HandleDash;
+          //  _dialogForChoppingAction.performed -= HandleCountertop;
+          //  _pickUpAction.performed -= HandlePickUp;
+            _pickUpAction.performed -= HandleChoices;
             _interactAction.performed -= HandleInteract;
+            _pauseAction.performed -= HandlePause;
         }
 
         private void SubscribeInteractableEvents()
@@ -190,33 +211,167 @@ namespace Undercooked.Player
             StartCoroutine(Dash());
         }
 
-
-
-
-        private void HandleDialog(InputAction.CallbackContext context)
+        private bool typeElementHandled(string nameElement)
         {
-            Debug.Log($"[PlayerController] {transform.position}");
+            if (nameElement == "Tomato(Clone)")
+            {
+                return true;
+            }
+
+            if (nameElement == "Onion(Clone)")
+            {
+                return true;
+            }
+
+            if (nameElement == "Plate")
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+         private void HandleChoices(InputAction.CallbackContext context)
+        {
+          //  Debug.Log($"[PlayerController] HandleCountertop: {transform.position}");
+            // TODO Procurar aqui
+            // StopAllCoroutines();
+                    
+            var interactable = _interactableController.CurrentInteractable;
+            //Debug.Log("interactable com Space: "+interactable);
+            //Debug.Log(" interactable Tomato: "+interactable.CurrentPickable);
+            
+            var getCountertop = interactable.GetComponent<Countertop>();
+            var isMiddle = false;
+            if (getCountertop && getCountertop.isMiddle)
+                isMiddle = true;
+    
+            Debug.Log("Element is in the Middle Countertop: "+getCountertop?.isMiddle);
+
+            if (!isMiddle)
+            {
+                this.HandlePickUp(context);
+            }
+
+            // TODO: dividir isto em Tutorial e jogo normal
+            if (isMiddle)
+            {
+                var isInMyHand = false;
+                if (interactable.CurrentPickable == null)
+                {
+                    isInMyHand = true;
+                }
+                // está no meio
+                Debug.Log("isInMyHand: "+isInMyHand);
+                
+                if (isInMyHand)
+                {
+                    // lidar como handle V   
+                    TutorialManager.isTomateSettedOnTable = true;
+                    if (TutorialManager.isReady)
+                       TutorialManager.isPlateOnTable = true;
+
+                    this.HandlePickUp(context);
+                }
+
+                if (!isInMyHand)
+                {
+                 
+                    TutorialManager.isTomateCutting = true;
+                    if (TutorialManager.isReady)
+                       TutorialManager.isDelivering = true;
+
+                    // lidar com o Space
+                    this.HandleCountertop(context);
+                }
+                // será que colocamos para mesa
+
+                // sera que ja esta na mesa?
+            }
+        }
+
+        /***
+
+            ---------------------------------------
+               Request Help for AssistantDialog
+            ---------------------------------------
+          
+        **/
+        private void HandleCountertop(InputAction.CallbackContext context)
+        {
+          //  Debug.Log($"[PlayerController] HandleCountertop: {transform.position}");
             StopAllCoroutines();
+                    
+            var interactable = _interactableController.CurrentInteractable;
+           
+ 
+            if (interactable.CurrentPickable == null) return;
+            try { 
+                    var nextCurrentPickable =  interactable.CurrentPickable;
 
-            //dialogChopping.SetActive(true);
-            string[] dialogues = new string[] { "Por favor, você pode \n cortar tomates?"};
-            dialogueSystem.dialogueLines = dialogues;
-            FindObjectOfType<DialogueSystem>().StartTalking();
+                    Debug.Log("nextCurrentPickable?.gameObject.name: "+nextCurrentPickable?.gameObject.name);
+                    // I will request help.
+                    Request myRequest = new Request();  
+                    myRequest.setCurrentPickable(nextCurrentPickable?.gameObject);
 
-            this.PlaySoundTransition(dialogAudio);
-            StartCoroutine(DisableDialog());
+                    if (nextCurrentPickable?.gameObject.name == "Tomato(Clone)")
+                    {
+                        myRequest.setRequestType(RequestType.CutTomato);
+                    }
+
+                    if (nextCurrentPickable?.gameObject.name == "Onion(Clone)")
+                    {
+                        myRequest.setRequestType(RequestType.CutOnion);
+                    }
+
+                    if (nextCurrentPickable?.gameObject.name == "Plate")
+                    {
+                        myRequest.setRequestType(RequestType.DeliverOrder);
+                    }
+
+
+                    if (nextCurrentPickable?.gameObject.name == "DEBUG")
+                    {
+                        myRequest.setRequestType(RequestType.GetRandomElement);
+                    }
+
+                    requestHelpFor(myRequest);
+
+            } catch {
+                Debug.Log("Horrible things happened!");
+            }
+       
         }
 
 
 
+
+        public void requestHelpFor(Request myRequest)
+        { 
+            // Dialog
+            dialogueSystem.dialogueLines = myRequest._requestData.messageToAsk;
+            FindObjectOfType<DialogueSystem>().StartTalking();
+
+            // Audio
+            this.PlaySoundTransition(dialogAudio);
+
+            // Request
+            // TODO: this could be a Invoke method
+            _requestController.HandleAsking(myRequest);
+
+            // Close Dialog
+            StartCoroutine(DisableDialog());
+        }
+
+
         private IEnumerator DisableDialog()
         {
-            //wait 3 seconds
             yield return new WaitForSeconds(7);
             //dialogChopping.SetActive(false);
             FindObjectOfType<DialogueSystem>().OutOfRange();
         }
         
+
         /*
      public void OnTriggerStay(Collider other)
         {
@@ -246,11 +401,12 @@ namespace Undercooked.Player
             yield return _dashCooldown;
             _isDashingPossible = true;
         }
+        // Handle operations
 
         private void HandlePickUp(InputAction.CallbackContext context)
         {
             var interactable = _interactableController.CurrentInteractable;
-
+        
             // empty hands, try to pick
             if (_currentPickable == null)
             {
@@ -352,16 +508,25 @@ namespace Undercooked.Player
             MenuPanelUI.PauseUnpause();
         }
 
+        private void HandlePause(InputAction.CallbackContext context)
+        {
+            MenuPanelUI.OpenPause();
+        }
+
+        private void UpdateDialogueBox()
+        {
+              // Dialogue box update
+            Vector3 Pos = Camera.main.WorldToScreenPoint(transform.position);
+            Pos.y += 100;
+            dialogChopping.transform.position = Pos;
+         
+        }
+
         private void Update()
         {
             if (!_isActive) return;
 
-            // Dialogue box update
-            Vector3 Pos = Camera.main.WorldToScreenPoint(transform.position);
-            Pos.y += 175;
-            dialogChopping.transform.position= Pos;
-         
-
+            UpdateDialogueBox();
 
             CalculateInputDirection();
         }
@@ -374,6 +539,8 @@ namespace Undercooked.Player
             TurnThePlayer();
         }
 
+        // Moving the Chef
+    
         private void MoveThePlayer()
         {
             if (_isDashing)

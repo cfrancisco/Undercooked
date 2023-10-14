@@ -21,6 +21,7 @@ namespace Undercooked.UI
         public static async Task DisplayCenterNotificationAsync(
             string textToDisplay, Color outlineColor, float timeToDisplayInSeconds = 2f)
         {
+
             _text.text = textToDisplay;
             _text.outlineColor = outlineColor;
             await Task.Delay((int)(timeToDisplayInSeconds * 1000f));

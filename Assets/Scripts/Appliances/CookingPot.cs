@@ -15,6 +15,9 @@ namespace Undercooked.Appliances
     [RequireComponent(typeof(Collider))]
     public class CookingPot : Interactable, IPickable
     {
+        [Header("IngredientType")]
+        [SerializeField] private IngredientType baseIngredientType;
+        
         [Header("UI")]
         [SerializeField] private Slider slider;
         [SerializeField] private List<Image> ingredientUISlots;
@@ -48,7 +51,7 @@ namespace Undercooked.Appliances
         private Coroutine _cookCoroutine;
         private Coroutine _burnCoroutine;
         
-        private const int MaxNumberIngredients = 3;
+        private const int MaxNumberIngredients = 2;
 
         // Flags
         private bool _onHob;
@@ -79,7 +82,7 @@ namespace Undercooked.Appliances
             #if UNITY_EDITOR
                 Assert.IsNotNull(_canvasGroup);
                 Assert.IsNotNull(ingredientUISlots);
-                Assert.IsTrue(ingredientUISlots.Count == MaxNumberIngredients);
+              //  Assert.IsTrue(ingredientUISlots.Count == MaxNumberIngredients);
             #endif
             
             Setup();
@@ -120,7 +123,16 @@ namespace Undercooked.Appliances
                         ingredient.Type == IngredientType.Tomato ||
                         ingredient.Type == IngredientType.Mushroom)
                     {
-                        return TryDrop(pickableToDrop);    
+                        if (ingredient.Type == baseIngredientType)
+                        {
+                            TutorialManager.isCooking = TutorialManager.isCooking + 1; 
+                            return TryDrop(pickableToDrop);    
+                        }
+                        else
+                        {
+                            Debug.Log("[CookingPot] Only accepts: "+baseIngredientType);
+                            return false;
+                        }
                     }
                     Debug.Log("[CookingPot] Only accept Onions, tomatoes or Mushrooms");
                     return false;
@@ -165,9 +177,10 @@ namespace Undercooked.Appliances
             if (!IsCookFinished || IsBurned) return null;
             
             // we "lock" a soup if there are different ingredients. Player has to trash it away
-            if (Ingredients[0].Type != Ingredients[1].Type ||
+            /*  ||
                 Ingredients[1].Type != Ingredients[2].Type ||
-                Ingredients[0].Type != Ingredients[2].Type)
+                Ingredients[0].Type != Ingredients[2].Type */
+            if (Ingredients[0].Type != Ingredients[1].Type)
             {
                 // Debug.Log("[CookingPot] Soup with mixed ingredients! You must thrash it away! What a waste!");
                 return null;
@@ -235,7 +248,7 @@ namespace Undercooked.Appliances
             // after cook, we burn
             if (IsCookFinished)
             {
-                _burnCoroutine = StartCoroutine(Burn());
+              //  _burnCoroutine = StartCoroutine(Burn());
                 return;
             }
 
@@ -303,7 +316,7 @@ namespace Undercooked.Appliances
 
             // Debug.Log("[CookingPot] Finish partial cooking");
             
-            _burnCoroutine = StartCoroutine(Burn());
+            //_burnCoroutine = StartCoroutine(Burn());
         }
 
         private IEnumerator Burn()
@@ -410,9 +423,10 @@ namespace Undercooked.Appliances
        
         private void TriggerSuccessfulCook()
         {
+            TutorialManager.isReady = true;
             IsCookFinished = true;
             _currentCookTime = 0f;
-            _burnCoroutine = StartCoroutine(Burn());
+            // _burnCoroutine = StartCoroutine(Burn());
         }
         
         public void Pick()
@@ -478,8 +492,8 @@ namespace Undercooked.Appliances
 
         private void UpdateIngredientsUI()
         {
+            //ingredientUISlots[0].enabled = !IsBurned;
             ingredientUISlots[1].enabled = !IsBurned;
-            ingredientUISlots[2].enabled = !IsBurned;
             if (IsBurned)
             {
                 ingredientUISlots[0].sprite = burnIcon;

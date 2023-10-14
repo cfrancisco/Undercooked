@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Undercooked;
 using TMPro;
 
 public class LoadCharacter : MonoBehaviour
@@ -8,14 +7,19 @@ public class LoadCharacter : MonoBehaviour
 	public GameObject[] characterPrefabs;
 	public Transform spawnPoint;
 	public TMP_Text label;
+	public GameObject myCurrentAssistant; 
 
-	void Start()
+	void Awake()
 	{
 		int selectedCharacter = PlayerPrefs.GetInt("selectedCharacter");
 		//GameObject prefab = characterPrefabs[selectedCharacter];
 	    //GameObject clone = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
         characterPrefabs[selectedCharacter].SetActive(true);
-        var assistentData = characterPrefabs[selectedCharacter].GetComponent<AssistentModel>();
-        label.text = assistentData.Nickname;
+        myCurrentAssistant = characterPrefabs[selectedCharacter];
+        label.text = myCurrentAssistant.GetComponent<AssistentModel>().Nickname;
+
+
+		AssistentModel currentAssistant = myCurrentAssistant.GetComponent<AssistantController>().model; 
+		DatabaseToCsv.GetInstance().setAssistant(currentAssistant);
 	}
 }

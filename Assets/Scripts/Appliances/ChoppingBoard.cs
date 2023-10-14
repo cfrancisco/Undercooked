@@ -33,10 +33,37 @@ namespace Undercooked.Appliances
             slider.gameObject.SetActive(false);
         }
 
+
+        public override void Interact()
+        {
+          //  LastPlayerControllerInteracting = playerController; 
+           // base.Interact(playerController);
+            if (CurrentPickable == null ||
+                _ingredient == null ||
+                _ingredient.Status != IngredientStatus.Raw) return;
+            
+            if (_chopCoroutine == null)
+            {
+                _finalProcessTime = _ingredient.ProcessTime;
+                _currentProcessTime = 0f;
+                slider.value = 0f;
+                slider.gameObject.SetActive(true);
+                StartChopCoroutine();
+                return;
+            }
+
+            if (_isChopping == false)
+            {
+                StartChopCoroutine();
+            }
+        }
+
+
+
         public override void Interact(PlayerController playerController)
         {
-            LastPlayerControllerInteracting = playerController; 
-            base.Interact(playerController);
+          //  LastPlayerControllerInteracting = playerController; 
+           // base.Interact(playerController);
             if (CurrentPickable == null ||
                 _ingredient == null ||
                 _ingredient.Status != IngredientStatus.Raw) return;

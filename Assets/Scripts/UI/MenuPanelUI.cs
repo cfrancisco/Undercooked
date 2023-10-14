@@ -4,6 +4,7 @@ using TMPro;
 using Undercooked.Data;
 using Undercooked.Managers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,24 +13,40 @@ namespace Undercooked.UI
 {
     public class MenuPanelUI : Singleton<MenuPanelUI>
     {
+       // [Header("Notification UI")]
+       // [SerializeField] private GameObject notificationUi;
+      
+
+        [Header("Title Animation")]
+        [SerializeField] private GameObject titleMenu;
+      
         [Header("InitialMenu")]
         [SerializeField] private GameObject initialMenu;
+        /*
+        [SerializeField] private Button mainQuitButton;
+        [SerializeField] private Button startTrainButton;
+        [SerializeField] private Button startGameButton;
+        */
         private CanvasGroup _initalMenuCanvasGroup;
         [Space]
         
         [Header("PauseMenu")]
         [SerializeField] private GameObject pauseMenu;
+        [SerializeField] private GameObject feedbackMenu;
+        [SerializeField] private GameObject gameOverMenu;
+
         private CanvasGroup _pauseMenuCanvasGroup;
         
+        [SerializeField] private GameObject PanasPanel;
+
         [Header("Buttons")]
         [SerializeField] private GameObject firstSelectedPauseMenu;
-        [SerializeField] private Button resumeButton_Pause;
-        [SerializeField] private Button restartButton_Pause;
         [SerializeField] private Button quitButton_Pause;
         [Space]
         
+
+
         [Header("GameOverMenu")]
-        [SerializeField] private GameObject gameOverMenu;
         private CanvasGroup _gameOverMenuCanvasGroup;
         [SerializeField] private GameObject firstSelectedGameOverMenu;
         [SerializeField] private AudioClip successClip;
@@ -63,16 +80,10 @@ namespace Undercooked.UI
                 Assert.IsNotNull(initialMenu);
                 Assert.IsNotNull(pauseMenu);
                 Assert.IsNotNull(gameOverMenu);
+                Assert.IsNotNull(feedbackMenu);
                 Assert.IsNotNull(_initalMenuCanvasGroup);
                 Assert.IsNotNull(_gameOverMenuCanvasGroup);
                 Assert.IsNotNull(_pauseMenuCanvasGroup);
-                
-                Assert.IsNotNull(resumeButton_Pause);
-                Assert.IsNotNull(restartButton_Pause);
-                Assert.IsNotNull(quitButton_Pause);
-                Assert.IsNotNull(restartButton_GameOver);
-                Assert.IsNotNull(quitButton_GameOver);
-                
                 Assert.IsNotNull(star1);
                 Assert.IsNotNull(star2);
                 Assert.IsNotNull(star3);
@@ -82,69 +93,163 @@ namespace Undercooked.UI
                 Assert.IsNotNull(scoreText);
             #endif
             
-            initialMenu.SetActive(false);
-            pauseMenu.SetActive(false);
-            gameOverMenu.SetActive(false);
-            _initalMenuCanvasGroup.alpha = 0f;
-            _pauseMenuCanvasGroup.alpha = 0f;
-            _gameOverMenuCanvasGroup.alpha = 0f;
+           // initialMenu.SetActive(false);
+         //   pauseMenu.SetActive(false);
+         //   gameOverMenu.SetActive(false);
+            //_initalMenuCanvasGroup.alpha = 0f;
+           // _pauseMenuCanvasGroup.alpha = 0f;
+           // _gameOverMenuCanvasGroup.alpha = 0f;
         }
-
-        private void OnEnable()
+        public void AnimationUp()
         {
-            AddButtonListeners();
+            Vector3 _inputDirection = new Vector3(0.5f, 0.5f, 0.5f);
+
+            titleMenu.transform.localScale =_inputDirection;
+            titleMenu.transform
+                .localScaleTransition(Vector3.one, 2f, LeanEase.Bounce);
         }
 
-        private void OnDisable()
-        {
-            RemoveButtonListeners();
-        }
-
+        /*
         private void AddButtonListeners()
         {
-            resumeButton_Pause.onClick.AddListener(HandleResumeButton);
-            restartButton_Pause.onClick.AddListener(HandleRestartButton);
-            quitButton_Pause.onClick.AddListener(HandleQuitButton);
-            restartButton_GameOver.onClick.AddListener(HandleRestartButton);
-            quitButton_GameOver.onClick.AddListener(HandleQuitButton);
+            // For Main Menu.
+            mainQuitButton.onClick.AddListener(HandleQuitButton);
+            startTrainButton.onClick.AddListener(HandleStartTrainButton);
+            startGameButton.onClick.AddListener(HandleStartGameButton);
         }
 
         private void RemoveButtonListeners()
         {
-            resumeButton_Pause.onClick.RemoveAllListeners();
-            restartButton_Pause.onClick.RemoveAllListeners();
-            quitButton_Pause.onClick.RemoveAllListeners();
-            restartButton_GameOver.onClick.RemoveAllListeners();
-            quitButton_GameOver.onClick.RemoveAllListeners();
+           // restartButton_GameOver.onClick.RemoveAllListeners();
+            mainQuitButton.onClick.RemoveAllListeners();
+            startTrainButton.onClick.RemoveAllListeners();
+            startGameButton.onClick.RemoveAllListeners();
         }
+        */
 
-        private static void HandleResumeButton()
+        public static void HandleResumeButton()
         {
-            OnResumeButton?.Invoke();
+            Debug.Log("HandleResumeButton");
+         //   OnResumeButton?.Invoke();
+            MenuPanelUI.Unpause();
         }
 
-        private static void HandleRestartButton()
+        public static void HandleRestartButton()
         {
-            GameOverMenu();
-            OnRestartButton?.Invoke();
+         
+            LevelManager.GetInstance().ReloadGameScene();
+            //GameOverMenu();
+            //OnRestartButton?.Invoke();
         }
 
-        private static void HandleQuitButton()
+        public static void HandleQuitButton()
         {
-            OnQuitButton?.Invoke();
+            Application.Quit();
+        }
+        
+        public static void OpenColectMoodBox()
+        {
+            Instance.feedbackMenu.SetActive(true);
         }
 
+
+        public static void HandleStartTrainButton()
+        { 
+            MenuPanelUI.OpenColectMoodBox();
+        }
+
+
+        public static void SendEmojigridToDatabase()
+        {
+        
+            LevelData currentLevel = LevelManager.GetInstance().getCurrentLevel();   
+            Debug.Log("currentLevel.levelIndex: "+currentLevel.levelIndex);
+            /*if (currentLevel.levelIndex == 0)
+            {
+                DatabaseToCsv.GetInstance().setCurrentLevel(-1); // -1 is before tutorial
+            }*/
+            Vector3 mousePos = Input.mousePosition;
+            DatabaseToCsv.GetInstance().setEmotionFeedback(mousePos.x, mousePos.y);
+            // Save data in CSV
+            DatabaseToCsv.GetInstance().writeCSV();
+      
+
+            
+          //  if (goToLoadAssistantScene)
+            if (currentLevel.levelIndex == 0)
+            {
+                MenuPanelUI.StartTrainButton();
+            }
+            else
+            {
+                MenuPanelUI.HandleStartGameButton();    
+            }
+        }
+
+        public static void StartTrainButton()
+        {
+            Debug.Log("StartTrainButton");
+            LevelManager.GetInstance().LoadTutorialScene();
+        }
+
+        public static void HandleOpenTCLE()
+        {
+            Debug.Log("HandleOpenTCLE");
+        }
+
+
+        public static void HandleStartGameButton()
+        {
+            Debug.Log("HandleStartGameButton");
+            LevelManager.GetInstance().LoadAssistantScene();
+        }
+
+        public static void HandleGoToMenu()
+        {
+            Debug.Log("HandleGoToMenu");
+            Instance.PanasPanel?.SetActive(false);
+            SceneManager.LoadScene(LevelManager.MenuSceneName, LoadSceneMode.Single);
+        }
+
+        public static void HandleGoToMenuScene()
+        {
+            Debug.Log("HandleGoToMenuScene");
+            SceneManager.LoadScene(LevelManager.MenuSceneName, LoadSceneMode.Single);
+        }
+
+        public static void HandleGoToFeedbackMenu()
+        {
+            Instance.gameOverMenu.SetActive(false);
+            Instance.feedbackMenu.SetActive(true);
+        }
+
+        public static void HandleGoToPanas()
+        {
+            Instance.initialMenu.SetActive(false);
+            Instance.PanasPanel.SetActive(true);
+        }
+        
+/*
         public static void InitialMenuSetActive(bool active)
         {
             Instance.initialMenu.SetActive(active);
-            Instance._initalMenuCanvasGroup.alphaTransition(active ? 1f : 0f, 2f);
+         //   Instance._initalMenuCanvasGroup.alphaTransition(active ? 1f : 0f, 2f);
         }
-        
-        public static void PauseUnpause()
+        */
+        public static void Unpause()
+        {
+            Instance.pauseMenu.SetActive(false);
+            Instance._pauseMenuCanvasGroup
+                    .alphaTransition(0f, .5f)
+                    .JoinTransition()
+                    .EventTransition(() => Instance.pauseMenu.SetActive(false))
+                    .EventTransition(() => Time.timeScale = 1);
+        }
+
+        public static void OpenPause()
         {
             if (Instance.pauseMenu.activeInHierarchy == false)
             {
-                Instance.pauseMenu.SetActive(true);
                 Time.timeScale = 0;
                 EventSystem.current.SetSelectedGameObject(null);
                 EventSystem.current.SetSelectedGameObject(Instance.firstSelectedPauseMenu);
@@ -152,15 +257,19 @@ namespace Undercooked.UI
                 Instance.pauseMenu.SetActive(true);
                 Instance._pauseMenuCanvasGroup.alphaTransition(1f, .5f);
             }
+        }
+
+
+        public static void PauseUnpause()
+        {
+            if (Instance.pauseMenu.activeInHierarchy == false)
+            {
+                MenuPanelUI.OpenPause();
+            }
             else
             {
-                Instance.pauseMenu.SetActive(false);
-                Instance._pauseMenuCanvasGroup
-                    .alphaTransition(0f, .5f)
-                    .JoinTransition()
-                    .EventTransition(() => Instance.pauseMenu.SetActive(false))
-                    .EventTransition(() => Time.timeScale = 1);
-            }            
+                MenuPanelUI.Unpause();
+            }
         }
 
         public static void GameOverMenu()
@@ -193,6 +302,7 @@ namespace Undercooked.UI
             }
         }
 
+        /*  TODO: remove this to someelse place */
         private static void UpdateStars()
         {
             int score = GameManager.Score;

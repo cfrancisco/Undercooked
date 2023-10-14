@@ -5,6 +5,10 @@ namespace Undercooked.Appliances
 {
     public class Countertop : Interactable
     {
+
+        public bool isMiddle = false;
+
+        
         public override bool TryToDropIntoSlot(IPickable pickableToDrop)
         {
             if (CurrentPickable == null) return TryDropIfNotOccupied(pickableToDrop);

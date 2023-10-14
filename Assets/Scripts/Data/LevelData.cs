@@ -6,6 +6,7 @@ namespace Undercooked.Data
     [CreateAssetMenu(fileName = "LevelData", menuName = "LevelData", order = 1)]
     public class LevelData : ScriptableObject
     {
+        public int levelIndex;
         public string levelName;
         [Tooltip("Orders that going to be randomly spawned")]
         public List<OrderData> orders;
