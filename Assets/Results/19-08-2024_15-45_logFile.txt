@@ -1,0 +1,34 @@
+[EmojiGridHandler] Open EmojiGrid Box.
+[Clicked] Open Sam Button was clicked.
+[SamHandler] Open SAM Painel.
+[FileManager] Data will be saved at: C:/Users/FRANCISCOCabelo/Desktop/Undercooked-master/git/Undercooked/Assets/results/19-08-2024_15-48_levels.csv
+[FileManager] Data will be saved at: C:/Users/FRANCISCOCabelo/Desktop/Undercooked-master/git/Undercooked/Assets/results/19-08-2024_15-48_panas.csv
+[DatabaseToCsv] Cleaning Level.
+[DatabaseToCsv] Starting storage.
+[DatabaseToCsv] Last SAM: arousal(-1), valence(-1)
+[MenuPanel] Going to level: 0
+[calculateXemojiGrid] Calculating Fix_X(-90,90909) Original_X(0)
+[calculateYemojiGrid] Calculating Fix_Y(-33,33333) Original_Y(0)
+[DatabaseToCsv] Storing Emotion Feedback: X(-141), Y(-83)
+[DatabaseToCsv] ---- Final Score: 0
+[getAssistantModel] @getAssistantModel ;1;30;Good;
+[sceneName] Current scene: Menu
+[MenuPanel] Opening Tutorial phase.
+lvtreino: : {
+    "levelIndex": 0,
+    "levelName": "Treino",
+    "orders": [
+        {
+            "instanceID": 25770
+        },
+        {
+            "instanceID": 25712
+        }
+    ],
+    "durationTime": 120,
+    "star1Score": 30,
+    "star2Score": 50,
+    "star3Score": 70,
+    "lastScore": 0
+}
+[Level Manager] Loading Written Tutorial. 

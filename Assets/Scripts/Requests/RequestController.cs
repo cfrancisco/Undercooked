@@ -56,8 +56,8 @@ namespace Undercooked.Requests
 
         public void HandleAsking(Request request)
         {
-            Debug.Log("Requisição: "+request._requestData.type);
-            Debug.Log("_isIdle: "+_isIdle);
+            Debug.Log("[Request] Requesting to "+request._requestData.type+".");
+            Debug.Log("[Request] Is Assistant Idle? "+_isIdle);
             if (!this._isIdle)
             {
                 // I'm not idle
@@ -68,7 +68,7 @@ namespace Undercooked.Requests
             bool resultBoard = this.CheckIfBoardIsFull(request);
             if (resultBoard)
             {
-                Debug.Log("The board is full!!!");
+                Debug.Log("[Request] The board is full!!!");
                 return; 
             }
 
@@ -134,7 +134,7 @@ namespace Undercooked.Requests
         {
             Request requestedAction = this.currentRequest;
         
-            var assistantPersona = _currentAssistant.GetComponent<AssistentModel>();
+            var assistantPersona = _currentAssistant.GetComponent<AssistantController>().model;
 
             bool isAwake = assistantPersona.nextShouldHelp();
 
@@ -163,10 +163,11 @@ namespace Undercooked.Requests
         {
             this.timestampEnd = this.gameObject.GetComponent<GameManager>().TimeRemaining;
 
+            Debug.Log("[Request] Sending operation to DatabaseToCsv.");
             // Save Data on CSV. This could be a Invoke. 
             RequestMade requestRealized = new RequestMade(this.timestampStart,this.timestampEnd,this._currentAssistantResponse, this.currentRequest.requestType);
 
-            DebugUndercooked.DumpToConsole("Operation Realized: ", requestRealized);
+            DebugUndercooked.DumpToConsole("[Request] Operation Realized: ", requestRealized);
 
         	DatabaseToCsv.GetInstance().setRequestMade(requestRealized);
         }

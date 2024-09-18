@@ -16,10 +16,6 @@ public class LoadCharacter : MonoBehaviour
 	    //GameObject clone = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
         characterPrefabs[selectedCharacter].SetActive(true);
         myCurrentAssistant = characterPrefabs[selectedCharacter];
-        label.text = myCurrentAssistant.GetComponent<AssistentModel>().Nickname;
-
-
-		AssistentModel currentAssistant = myCurrentAssistant.GetComponent<AssistantController>().model; 
-		DatabaseToCsv.GetInstance().setAssistant(currentAssistant);
+        label.text = myCurrentAssistant.GetComponent<AssistantController>().model.Nickname;
 	}
 }

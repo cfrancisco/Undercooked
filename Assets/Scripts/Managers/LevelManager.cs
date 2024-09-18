@@ -7,12 +7,12 @@ using UnityEditor;
 namespace Undercooked.Managers
 {
 
-        // NB: ScriptableObject Singleton needed for Serialization
-        // even during play mode recompiles
+    // NB: ScriptableObject Singleton needed for Serialization
+    // even during play mode recompiles
     public class LevelManager : ScriptableObject
     {
 
-        [SerializeField] public LevelData[] levels = new LevelData[11];
+        [SerializeField] public LevelData[] levels = new LevelData[12];
 
         public static string AssistantSceneName = "SelectAssistant";
         public static string TutorialSceneName = "TutorialPhase";
@@ -21,7 +21,7 @@ namespace Undercooked.Managers
         public static string GameSceneName = "LevelTraining";
 
 
-        public static int currentLevelIndex = 0; 
+        public static int currentLevelIndex = 0;
         public static LevelData currentLevel;
         public static LevelManager _instance;
 
@@ -30,20 +30,21 @@ namespace Undercooked.Managers
             LevelManager.currentLevelIndex = 0;
 
             // Loading Levels
-            LevelData lvTreino = (LevelData)AssetDatabase.LoadAssetAtPath("Assets/Data/Levels/LevelTreino.asset", typeof(LevelData));
-            LevelData lv1 = (LevelData)AssetDatabase.LoadAssetAtPath("Assets/Data/Levels/Level1.asset", typeof(LevelData));
-            LevelData lv2 = (LevelData)AssetDatabase.LoadAssetAtPath("Assets/Data/Levels/Level2.asset", typeof(LevelData));
-            LevelData lv3 = (LevelData)AssetDatabase.LoadAssetAtPath("Assets/Data/Levels/Level3.asset", typeof(LevelData));
-            LevelData lv4 = (LevelData)AssetDatabase.LoadAssetAtPath("Assets/Data/Levels/Level4.asset", typeof(LevelData));
-            LevelData lv5 = (LevelData)AssetDatabase.LoadAssetAtPath("Assets/Data/Levels/Level5.asset", typeof(LevelData));
-            LevelData lv6 = (LevelData)AssetDatabase.LoadAssetAtPath("Assets/Data/Levels/Level6.asset", typeof(LevelData));
-            LevelData lv7 = (LevelData)AssetDatabase.LoadAssetAtPath("Assets/Data/Levels/Level7.asset", typeof(LevelData));
-            LevelData lv8 = (LevelData)AssetDatabase.LoadAssetAtPath("Assets/Data/Levels/Level8.asset", typeof(LevelData));
-            LevelData lv9 = (LevelData)AssetDatabase.LoadAssetAtPath("Assets/Data/Levels/Level9.asset", typeof(LevelData));
-            LevelData lv10 = (LevelData)AssetDatabase.LoadAssetAtPath("Assets/Data/Levels/Level10.asset", typeof(LevelData));
-            LevelData lvBase = (LevelData)AssetDatabase.LoadAssetAtPath("Assets/Data/LevelSample.asset", typeof(LevelData));
-//lvBase.levelIndex = 0;  
-//lvBase.levelName = "Treino";
+            LevelData lvTreino = Resources.Load<LevelData>("Levels/LevelTreino");
+            DebugUndercooked.DumpToConsole("lvtreino: ", lvTreino);
+            LevelData lv1 = Resources.Load<LevelData>("Levels/Level1");
+            LevelData lv2 = Resources.Load<LevelData>("Levels/Level2");
+            LevelData lv3 = Resources.Load<LevelData>("Levels/Level3");
+            LevelData lv4 = Resources.Load<LevelData>("Levels/Level4");
+            LevelData lv5 = Resources.Load<LevelData>("Levels/Level5");
+            LevelData lv6 = Resources.Load<LevelData>("Levels/Level6");
+            LevelData lv7 = Resources.Load<LevelData>("Levels/Level7");
+            LevelData lv8 = Resources.Load<LevelData>("Levels/Level8");
+            LevelData lv9 = Resources.Load<LevelData>("Levels/Level9");
+            LevelData lv10 = Resources.Load<LevelData>("Levels/Level10");
+            //LevelData lvBase = (LevelData)Resources.Load("Data/LevelSample.asset");
+            //lvBase.levelIndex = 0;  
+            //lvBase.levelName = "Treino";
             this.levels[0] = lvTreino;
             this.levels[1] = lv1;
             this.levels[2] = lv2;
@@ -55,23 +56,24 @@ namespace Undercooked.Managers
             this.levels[8] = lv8;
             this.levels[9] = lv9;
             this.levels[10] = lv10;
-        }   
-/*
-        private void Awake()
-        {
-        
-            // start of new code
-            if (_instance != null)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            // end of new code
-
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
+            this.levels[11] = lvTreino;
         }
-*/
+        /*
+                private void Awake()
+                {
+
+                    // start of new code
+                    if (_instance != null)
+                    {
+                        Destroy(gameObject);
+                        return;
+                    }
+                    // end of new code
+
+                    _instance = this;
+                    DontDestroyOnLoad(gameObject);
+                }
+        */
         public static LevelManager GetInstance()
         {
             if (!_instance)
@@ -89,35 +91,47 @@ namespace Undercooked.Managers
             }
             return _instance;
         }
-     
 
-        public void LoadNextLevel()
+        public void UpToNextLevel()
         {
+            // Setting the Score in last levelData; 
+            Debug.Log("[LevelManager] UpToNextLevel.");
+            this.levels[LevelManager.currentLevelIndex].setLastScore(GameManager.Score);
+
             LevelManager.currentLevelIndex++;
             LevelManager.currentLevel = levels[LevelManager.currentLevelIndex];
-            this.LoadGameScene();
         }
-        
+
+
         public void LoadAssistantScene()
         {
+            Debug.Log("[Level Manager] Loading Assistant Selection Scene. ");
             SceneManager.LoadScene(LevelManager.AssistantSceneName, LoadSceneMode.Single);
         }
 
 
         public void LoadMenuScene()
         {
+            Debug.Log("[Level Manager] Loading Main Menu Scene. ");
             SceneManager.LoadScene(LevelManager.MenuSceneName, LoadSceneMode.Single);
         }
-
         public void LoadTutorialScene()
         {
-            LevelManager.currentLevelIndex = -1; 
+            Debug.Log("[Level Manager] Loading Written Tutorial. ");
+            LevelManager.currentLevelIndex = 0;
+
             SceneManager.LoadScene(LevelManager.TutorialSceneName, LoadSceneMode.Single);
         }
 
         public void LoadGameScene()
         {
-            Debug.Log("Starting level "+LevelManager.currentLevelIndex );
+            Debug.Log("[Level Manager] currentLevelIndex: " + LevelManager.currentLevelIndex);
+
+            Debug.Log(">> Starting level " + LevelManager.currentLevelIndex);
+            DatabaseToCsv.GetInstance().CleanLevel();
+
+            DatabaseToCsv.GetInstance().setCurrentLevel(LevelManager.currentLevelIndex);
+
 
             if (LevelManager.currentLevelIndex == 0)
             {
@@ -129,13 +143,14 @@ namespace Undercooked.Managers
                 // load game scene
                 SceneManager.LoadScene(LevelManager.GameSceneName, LoadSceneMode.Single);
             }
-                
+
         }
 
 
         public void ReloadGameScene()
         {
-            Debug.Log("ReloadGameScene");
+            Debug.Log("[Level Manager] Reload Game Scene.");
+
             this.LoadGameScene();
         }
 
@@ -143,19 +158,25 @@ namespace Undercooked.Managers
 
         public void setCurrentLevel(LevelData cl)
         {
-            Debug.Log("Starting level "+cl.levelName);
+            Debug.Log(">> Starting level " + cl.levelName);
             LevelManager.currentLevel = cl;
         }
 
 
         public LevelData getCurrentLevel()
         {
-            return  this.levels[LevelManager.currentLevelIndex];;
+            return this.levels[LevelManager.currentLevelIndex];
+        }
+
+
+        public LevelData getLevelN(int levelIndex)
+        {
+            return this.levels[levelIndex];
         }
 
         public void goToLevelN(int _currentLevelIndex)
         {
-            LevelManager.currentLevelIndex = _currentLevelIndex; 
+            LevelManager.currentLevelIndex = _currentLevelIndex;
             LevelManager.currentLevel = this.levels[_currentLevelIndex];
         }
 

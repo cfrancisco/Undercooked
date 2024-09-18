@@ -37,10 +37,9 @@ public class CharacterSelection : MonoBehaviour
 	private void showAssistantData(){
 		characters[selectedCharacter].SetActive(true);
 
-		var assistentData = this.characters[selectedCharacter].GetComponent<AssistentModel>();
+		var assistentData = this.characters[selectedCharacter].GetComponent<AssistantController>().model;
 		textAssistentName.text = assistentData.Nickname;
-		Debug.Log("assistentData.gamesAvailable: "+assistentData.getGameAvailable());
-		Debug.Log("assistentData.Nickname: "+assistentData.Nickname);
+ 		Debug.Log("[Select Assistant] Showing Nickname: "+assistentData.Nickname+ "  with Games available: "+assistentData.getGameAvailable());
 
 
 		if (assistentData.getGameAvailable() == 0)
@@ -89,6 +88,7 @@ public class CharacterSelection : MonoBehaviour
 
 	public void NextCharacter()
 	{
+		Debug.Log("[Select Assistant] Next Character Button was clicked.");
 		characters[selectedCharacter].SetActive(false);
 		selectedCharacter = (selectedCharacter + 1) % characters.Length;
 	   
@@ -100,6 +100,7 @@ public class CharacterSelection : MonoBehaviour
 
 	public void PreviousCharacter()
 	{
+		Debug.Log("[Select Assistant] Previous Character Button was clicked.");
 		characters[selectedCharacter].SetActive(false);
 		selectedCharacter--;
 		if (selectedCharacter < 0)
@@ -114,21 +115,41 @@ public class CharacterSelection : MonoBehaviour
 
 	public void StartGame()
 	{
+		Debug.Log("[Select Assistant] Start Game Button was clicked.");
+	
 		PlayerPrefs.SetInt("selectedCharacter", selectedCharacter);	
-		int gamesAvailable = characters[selectedCharacter].GetComponent<AssistentModel>().getGameAvailable(); 
+		int gamesAvailable = characters[selectedCharacter].GetComponent<AssistantController>().model.getGameAvailable(); 
 
 
 		if (gamesAvailable == 0)
 		{
-			Debug.Log("Isn't possible to select this character.");
+			Debug.Log("[Select Assistant] Isn't possible to select this character.");
 		} 
 		else
 		{
-			this.characters[selectedCharacter].GetComponent<AssistentModel>().reduceOneGame();
+			// if is not in tutorial phase
+          if (LevelManager.currentLevelIndex == 0)
+			{
+			Debug.Log("[Select Assistant] Tutorial phase doesn't reduce one live.");
+
+			}
+			else
+			{
+				this.characters[selectedCharacter].GetComponent<AssistantController>().model.reduceOneGame();
+			}
 
 			_moveAction.performed -= HandleMoveChar;
 			_startAtPlayerAction.performed -= HandleEnterChar;
-			LevelManager.GetInstance().LoadNextLevel();
+
+			DatabaseToCsv.GetInstance().setAssistant(this.characters[selectedCharacter].GetComponent<AssistantController>().model);
+	
+			LevelManager.GetInstance().LoadGameScene();
 		}
 	}
+	public void HandleGoToMenu()
+	{
+		Debug.Log("[Clicked] Go to Menu Button was clicked.");
+		LevelManager.GetInstance().LoadMenuScene();
+	}
+
 }

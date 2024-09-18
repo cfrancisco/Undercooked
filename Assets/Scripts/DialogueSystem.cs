@@ -49,6 +49,7 @@ public class DialogueSystem: MonoBehaviour {
 
     public void StartTalking()
     {
+        Debug.Log("[Dialogue] Start Talking.");
         outOfRange = false;
         dialogueBoxGUI.gameObject.SetActive(true);
         if (!dialogueActive)
@@ -61,7 +62,6 @@ public class DialogueSystem: MonoBehaviour {
 
     private IEnumerator StartDialogue()
     {
-        Debug.Log("StartDialogue");
         if (outOfRange == false)
         {
             int dialogueLength = dialogueLines.Length;

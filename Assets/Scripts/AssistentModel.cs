@@ -4,7 +4,10 @@ using Undercooked;
 
 namespace Undercooked 
 {
-public class AssistentModel : MonoBehaviour
+    
+    [CreateAssetMenu(fileName = "AssistentData", menuName = "AssistentData", order = 1)]
+
+public class AssistentModel : ScriptableObject
 {
     
     public string Nickname; 
@@ -21,7 +24,7 @@ public class AssistentModel : MonoBehaviour
   
     public int getGameAvailable()
     {
-       // Debug.Log("getGameAvailable: "+ MainDatabase.LifeManager.GetInstance().GetLives(this.AssistentIndex).ToString());
+     //  Debug.Log("getGameAvailable: "+ MainDatabase.LifeManager.GetInstance().GetLives(this.AssistentIndex).ToString());
         return MainDatabase.LifeManager.GetInstance().GetLives(this.AssistentIndex); 
     }
 
@@ -32,13 +35,27 @@ public class AssistentModel : MonoBehaviour
        }
     } 
 
+
+    public string getMyData(){
+        return this.Nickname+";"+this.movementSpeed+";"+
+        (this.probalityToSleep*100).ToString()+";"+
+        this.personality.ToString()+";";
+    } 
+
     public bool nextShouldHelp(){
         int randomIndex = Random.Range(0, 100);
-            Debug.Log("% to Sleep: "+this.probalityToSleep);
+        Debug.Log("[Assistant] % to Sleep: "+this.probalityToSleep);
 
+   
+         Debug.Log("[Assistant] @getAssistantModel "+this.getMyData());
+      //  if (this._assistant.Nickname)
+   
+        bool willHelp = false;
+        if (randomIndex > this.probalityToSleep*100) 
+            willHelp = true;
 
-        if (randomIndex > this.probalityToSleep*100) return true;
-        return false; 
+        Debug.Log("[Assistant] Will the Assistant Help? "+willHelp);
+        return willHelp;
     }
         
     public ResponseType getFaceBasedPersona()

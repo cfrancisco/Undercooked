@@ -93,6 +93,7 @@ public class TutorialHandler : MonoBehaviour
 
 	public void GoToCharacterSelection()
 	{
+		Debug.Log("[Written Tutorial] Go to Select Assistant Scene,");
 		_moveAction.performed -= HandleMoveTutorial;
 		_startAtPlayerAction.performed -= HandleMoveTutorial;
 		LevelManager.GetInstance().LoadAssistantScene();

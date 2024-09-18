@@ -1,0 +1,42 @@
+[EmojiGridHandler] Open EmojiGrid Box.
+[FileManager] Data will be saved at: C:/Users/FRANCISCOCabelo/Desktop/Undercooked-master/git/Undercooked/Assets/results/06-08-2024_16-11_levels.csv
+[FileManager] Data will be saved at: C:/Users/FRANCISCOCabelo/Desktop/Undercooked-master/git/Undercooked/Assets/results/06-08-2024_16-11_panas.csv
+[DatabaseToCsv] Cleaning Level.
+[DatabaseToCsv] Starting storage.
+[Clicked] Open Sam Button was clicked.
+[SamHandler] Open SAM Painel.
+[DatabaseToCsv] Last SAM: arousal(-1), valence(-1)
+[MenuPanel] Going to level: 0
+[calculateXemojiGrid] Calculating Fix_X(75,97971) Original_X(917,8884)
+[calculateYemojiGrid] Calculating Fix_Y(61,4477) Original_Y(511,8176)
+[DatabaseToCsv] Storing Emotion Feedback: X(26), Y(11)
+>>writeLine>>>>>>>
+[DatabaseToCsv] ---- Final Score: 0
+[getAssistantModel] @getAssistantModel ;1;30;Good;
+>>writeLine>>>>>>>
+[sceneName] Current scene: Menu
+[MenuPanel] Opening Tutorial phase.
+lvtreino: : {
+    "levelIndex": 0,
+    "levelName": "Treino",
+    "orders": [
+        {
+            "instanceID": 25770
+        },
+        {
+            "instanceID": 25712
+        }
+    ],
+    "durationTime": 120,
+    "star1Score": 30,
+    "star2Score": 50,
+    "star3Score": 70,
+    "lastScore": 0
+}
+[Level Manager] Loading Written Tutorial. 
+[Written Tutorial] Go to Select Assistant Scene,
+[Level Manager] Loading Assistant Selection Scene. 
+[Select Assistant] Showing Nickname: Ana  with Games available: 2
+[LastScoreController] ShowLastScores.
+[Select Assistant] Next Character Button was clicked.
+[Select Assistant] Showing Nickname: Breno  with Games available: 2

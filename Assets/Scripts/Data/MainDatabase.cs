@@ -51,7 +51,7 @@ namespace Undercooked
 
             public  void reduceOneGame(int index)
             {
-                Debug.Log("reduceOneGame in Assistant: "+index.ToString());
+                Debug.Log("[Select Assistant] Reduced one game in Assistant with index "+index.ToString());
                 this.dataFromAassistants[index]--;
             }
 

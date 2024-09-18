@@ -16,5 +16,12 @@ namespace Undercooked.Data
         public int star1Score;
         public int star2Score;
         public int star3Score;
+        public int lastScore;
+
+        public void setLastScore(int _lastScore)
+        {
+            Debug.Log("[LevelData] Setting the Last Score in the phase:" + this.levelName);
+            this.lastScore = _lastScore;
+        }
     }
 }

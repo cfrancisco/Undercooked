@@ -1,0 +1,21 @@
+[MenuPanel] Start Game phase.
+lvtreino: : {
+    "levelIndex": 0,
+    "levelName": "Treino",
+    "orders": [
+        {
+            "instanceID": 25770
+        },
+        {
+            "instanceID": 25712
+        }
+    ],
+    "durationTime": 120,
+    "star1Score": 30,
+    "star2Score": 50,
+    "star3Score": 70,
+    "lastScore": 0
+}
+[Level Manager] Loading Assistant Selection Scene. 
+[Select Assistant] Showing Nickname: Ana  with Games available: 2
+[LastScoreController] ShowLastScores.

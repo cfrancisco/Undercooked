@@ -63,6 +63,7 @@ public class TutorialManager : MonoBehaviour
 
         if (currentLevel.levelIndex == 0)
         {
+            Debug.Log("[TutorialManager] Tutorial started.");
             this.backgroundScene.SetActive(true);
             popUps[this.popUpIndex].SetActive(true); 
         }
@@ -76,6 +77,7 @@ public class TutorialManager : MonoBehaviour
 
     public void Init()
     {   
+        // Starts with order been shown. 
         LevelData currentLevel = LevelManager.GetInstance().getCurrentLevel();   
 
         if (currentLevel.levelIndex == 0)
@@ -251,7 +253,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (this.popUpIndex == 1)
         {
-            Debug.Log("checkArrows");
+            Debug.Log("[TutorialManager] Player moved using arrows.");
             _moveAction.performed -= checkArrows;
             this.NextPopup();
         }
@@ -272,6 +274,9 @@ public class TutorialManager : MonoBehaviour
     {
         popUps[this.popUpIndex].SetActive(false);
         this.popUpIndex++;
+    
+        Debug.Log("[TutorialManager] Tutorial Next Step: "+ this.popUpIndex);
+            
         if (popUps[this.popUpIndex])
             popUps[this.popUpIndex].SetActive(true);
     }

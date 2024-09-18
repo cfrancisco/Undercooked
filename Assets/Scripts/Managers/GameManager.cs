@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 using TMPro;
- 
+
 namespace Undercooked.Managers
 {
     [RequireComponent(typeof(OrderManager))]
@@ -26,12 +26,12 @@ namespace Undercooked.Managers
         [SerializeField] private GameObject notificationBox;
         [SerializeField] private TextMeshProUGUI textPhaseName;
 
-       // [SerializeField] private DatabaseToCsv databaseToCsv;
-       
+        // [SerializeField] private DatabaseToCsv databaseToCsv;
+
         public const int BaseScorePerPlate = 20;
         public const int PenaltyExpiredScore = 10;
         public const float TimeToReturnPlateSeconds = 3f;
-        
+
         private Coroutine _countdownCoroutine;
         private readonly WaitForSeconds _timeToReturnPlate = new WaitForSeconds(TimeToReturnPlateSeconds);
         private readonly WaitForSeconds _oneSecondWait = new WaitForSeconds(1f);
@@ -48,18 +48,18 @@ namespace Undercooked.Managers
                 OnScoreUpdate?.Invoke(_score, _score - previous);
             }
         }
-/*
-        public int TimeRemaining
-        {
-            get => TimeRemaining;
-            private set
-            {
-                TimeRemaining = value;
-                OnCountdownTick?.Invoke(TimeRemaining);
-            }
-        }*/
+        /*
+                public int TimeRemaining
+                {
+                    get => TimeRemaining;
+                    private set
+                    {
+                        TimeRemaining = value;
+                        OnCountdownTick?.Invoke(TimeRemaining);
+                    }
+                }*/
 
-        public static LevelData LevelData => Instance.level1; 
+        public static LevelData LevelData => Instance.level1;
 
         public delegate void CountdownTick(int TimeRemaining);
         public static event CountdownTick OnCountdownTick;
@@ -71,18 +71,18 @@ namespace Undercooked.Managers
         public static event TimeIsOver OnTimeIsOver;
         public delegate void LevelStart();
         public static event LevelStart OnLevelStart;
-        
+
         private void Awake()
         {
-            #if UNITY_EDITOR
-                Assert.IsNotNull(dishTray);
-                Assert.IsNotNull(orderManager);
-                Assert.IsNotNull(tutorialManager);
-                Assert.IsNotNull(level1);
-                Assert.IsNotNull(cameraManager);
-                Assert.IsNotNull(inputController);
-                Assert.IsNotNull(textPhaseName);
-            #endif
+#if UNITY_EDITOR
+            Assert.IsNotNull(dishTray);
+            Assert.IsNotNull(orderManager);
+            Assert.IsNotNull(tutorialManager);
+            Assert.IsNotNull(level1);
+            Assert.IsNotNull(cameraManager);
+            Assert.IsNotNull(inputController);
+            Assert.IsNotNull(textPhaseName);
+#endif
         }
 
         private async void Start()
@@ -93,24 +93,25 @@ namespace Undercooked.Managers
 
         private void OnDestroy()
         {
-            _userPressedStart = true;
+            //  _userPressedStart = true;
         }
 
         private async Task GameLoop()
         {
             cameraManager.SwitchDollyCamera();
-            
-           // MenuPanelUI.InitialMenuSetActive(true);
+
+            // MenuPanelUI.InitialMenuSetActive(true);
             await Task.Delay(3000);
             //await StartMainMenuAsync();  // maybe move this out to Start()
-            LevelData currentLevel = LevelManager.GetInstance().getCurrentLevel();   
-            DebugUndercooked.DumpToConsole("[GameManager] currentLevel",currentLevel);
+            LevelData currentLevel = LevelManager.GetInstance().getCurrentLevel();
+            Debug.Log("----------------------------");
+            DebugUndercooked.DumpToConsole("[GameManager] currentLevel", currentLevel);
 
             await StartLevelAsync(currentLevel);
         }
 
-        private bool _userPressedStart;
-     /*    
+        //    private bool _userPressedStart;
+        /*    
         private async Task StartMainMenuAsync()
         {
             await Task.Delay(1000);
@@ -129,25 +130,26 @@ namespace Undercooked.Managers
             //inputController.OnStartPressedAtMenu -= HandleStartAtMenu;
         }
         */
-
-        private void HandleStartAtMenu()
-        {
-            _userPressedStart = true;
-        }
+        /*
+            private void HandleStartAtMenu()
+            {
+                _userPressedStart = true;
+            }
+        */
 
         private async Task StartLevelAsync(LevelData levelData)
         {
-     
+
             //_startAtMenuAction = playerInput.currentActionMap["Start@Menu"];
-           // _startAtMenuAction.performed += HandleStart;
+            // _startAtMenuAction.performed += HandleStart;
             textPhaseName.text = levelData.levelName;
 
             cameraManager.FocusFirstPlayer();
-            
+
             Score = 0;
             TimeRemaining = levelData.durationTime;
             notificationBox.SetActive(true);
-            
+
             await DisplayInitialNotifications();
             notificationBox.SetActive(false);
 
@@ -155,13 +157,13 @@ namespace Undercooked.Managers
             tutorialManager.Init();
 
             OnLevelStart?.Invoke();
-           
+
             // Unlock player movement
-           // inputController.EnableGameplayControls();
-           // inputController.EnableFirstPlayerController();
+            // inputController.EnableGameplayControls();
+            // inputController.EnableFirstPlayerController();
 
             inputController.OnStartPressedAtPlayer += HandlePausePressed;
-            
+
             _countdownCoroutine = StartCoroutine(CountdownTimer(TimeRemaining));
 
             //TODO: handle pause (pause timer coroutine and restart)
@@ -175,13 +177,13 @@ namespace Undercooked.Managers
         private InputAction _startAtPlayerAction;
         private bool _hasSubscribedPlayerActions;
         private bool _hasSubscribedMenuActions;
-        
+
         private static async Task DisplayInitialNotifications()
         {
             await NotificationUI.DisplayCenterNotificationAsync("Pronto?", new Color(.66f, .367f, .15f), 2f);
             await NotificationUI.DisplayCenterNotificationAsync("Vai!", new Color(.333f, .733f, .196f), 2f);
-          }
-        
+        }
+
         private void OnEnable()
         {
             DeliverCountertop.OnPlateDropped += HandlePlateDropped;
@@ -200,13 +202,13 @@ namespace Undercooked.Managers
         {
             MenuPanelUI.PauseUnpause();
         }
-     
+
 
         private void HandleOrderDelivered(Order order, int tipCalculated)
         {
             Score += BaseScorePerPlate + tipCalculated;
         }
-        
+
         private void HandleOrderExpired(Order order)
         {
             Score -= PenaltyExpiredScore;
@@ -226,17 +228,17 @@ namespace Undercooked.Managers
             MenuPanelUI.PauseUnpause();
             //_countdownCoroutine = StartCoroutine(CountdownTimer(TimeRemaining));
         }
-        
+
         private void HandlePlateDropped(Plate plate)
         {
-    /*
-            if (plate.IsEmpty() || plate.IsClean == false)
-            {
-                Debug.Log("[HandlePlateDropped] 1 ");
-                plate.RemoveAllIngredients();
-                StartCoroutine(ReturnPlateDirty(plate));
-                return;
-            }    */ 
+            /*
+                    if (plate.IsEmpty() || plate.IsClean == false)
+                    {
+                        Debug.Log("[HandlePlateDropped] 1 ");
+                        plate.RemoveAllIngredients();
+                        StartCoroutine(ReturnPlateDirty(plate));
+                        return;
+                    }    */
             orderManager.CheckIngredientsMatchOrder(plate.Ingredients);
             plate.RemoveAllIngredients();
             StartCoroutine(ReturnPlateDirty(plate));
@@ -269,24 +271,24 @@ namespace Undercooked.Managers
             // Take control from player
             // inputController.DisableAllPlayerControllers();
             notificationBox.SetActive(true);
-       
+
             await NotificationUI.DisplayCenterNotificationAsync("Tempo Encerrado!", new Color(.66f, .367f, .15f), 3f);
             notificationBox.SetActive(false);
-       
+
             inputController.OnStartPressedAtMenu -= HandlePausePressed;
             //inputController.EnableMenuControls();
 
             // pause time?
             //Time.timeScale = 0;
-            MenuPanelUI.GameOverMenu();
-            
+            MenuPanelUI.GoFeedbackDifficultMenu();
+
             // Stop OrderManager
             orderManager.StopAndClear();
-            
-          
+
+
             // TODO: Show summary end screen - prompt to play again
-            
-            
+
+
         }
     }
 }

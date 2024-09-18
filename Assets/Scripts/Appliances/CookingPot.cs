@@ -40,6 +40,8 @@ namespace Undercooked.Appliances
         [SerializeField] private AudioClip burnWarnCountdown;
         [SerializeField] private AudioClip beep;
         [SerializeField] private AudioClip fireBurning;
+        [SerializeField] private AudioClip wasFinished;
+        [SerializeField] private AudioSource audioSource;
 
         // Timers
         private float _totalCookTime;
@@ -427,6 +429,9 @@ namespace Undercooked.Appliances
             IsCookFinished = true;
             _currentCookTime = 0f;
             // _burnCoroutine = StartCoroutine(Burn());
+            if (wasFinished) audioSource.PlayOneShot(wasFinished, 0.9f);
+            //AudioSource.PlayClipAtPoint(wasFinished, 0.9f*Camera.main.transform.position + 0.1f*transform.position ,10f);
+
         }
         
         public void Pick()
